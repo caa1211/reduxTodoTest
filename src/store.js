@@ -1,14 +1,13 @@
 import {createStore} from 'redux'
 import todoApp from './reducers'
-
-let store = createStore(todoApp)
-
 import {
     addTodo,
     toggleTodo,
-    setFilter
+    setFilter,
+    VisibilityFilters
 } from './actions'
 
+let store = createStore(todoApp)
 console.log(store.getState())
 
 let unsubscribe = store.subscribe(() => 
@@ -21,3 +20,27 @@ store.dispatch(toggleTodo(0))
 store.dispatch(setFilter(VisibilityFilters.SHOW_COMPLETED))
 
 unsubscribe()
+
+
+// Test state
+
+ let previousState = {
+   toggleFilter: 'SHOW_ALL',
+   todos: [
+     {
+       text: 'Read the docs.',
+       complete: false
+     }
+   ]
+ }
+
+ // The action being performed (adding a todo)
+ let action = {
+   type: 'ADD_TODO',
+   text: 'Understand the flow.'
+ }
+
+ // Your reducer returns the next application state
+ let nextState = todoApp(previousState, action)
+
+ console.log("----next--", nextState);

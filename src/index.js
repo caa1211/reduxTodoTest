@@ -1,5 +1,11 @@
-import {createStore} from 'redux'
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 import todoApp from './reducers'
+import App from './components/App'
+
+//--Test data
 import {
     addTodo,
     toggleTodo,
@@ -7,16 +13,35 @@ import {
     VisibilityFilters
 } from './actions'
 
-let store = createStore(todoApp)
-console.log(store.getState())
 
-let unsubscribe = store.subscribe(() => 
-    console.log(store.getState())
+const initialState  = {
+     todos: [{
+       id: 0,
+       text: "aa",
+       completed: true
+     },{
+       id: 1,
+       text: "bb",
+       completed: false
+     }],
+     onTodoClick: () => {
+       alert(3);
+     }
+}
+
+let store = createStore(todoApp, initialState)
+
+// store.dispatch(addTodo('First action'))
+// store.dispatch(addTodo('Second action'))
+// store.dispatch(toggleTodo(0))
+//--
+
+
+
+
+render(
+  <Provider store={store}>
+  <App />
+  </Provider>,
+  document.getElementById('root')
 )
-
-store.dispatch(addTodo('First action'))
-store.dispatch(addTodo('Second action'))
-store.dispatch(toggleTodo(0))
-store.dispatch(setFilter(VisibilityFilters.SHOW_COMPLETED))
-
-unsubscribe()
