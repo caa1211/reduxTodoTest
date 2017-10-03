@@ -23,13 +23,10 @@ const initialState  = {
        id: 1,
        text: "bb",
        completed: false
-     }],
-     onTodoClick: () => {
-       alert(3);
-     }
+     }]
 }
 
-let store = createStore(todoApp, initialState)
+let store = createStore(todoApp)
 
 // store.dispatch(addTodo('First action'))
 // store.dispatch(addTodo('Second action'))
